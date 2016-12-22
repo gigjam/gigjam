@@ -1,12 +1,12 @@
 {
-  "name": "hackathon-starter",
-  "version": "4.3.0",
-  "description": "A boilerplate for Node.js web applications",
+  "name": "GigJam",
+  "version": "0.1",
+  "description": "GigJam",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sahat/hackathon-starter.git"
+    "url": "https://github.com/gigjam/gigjam.git"
   },
-  "author": "Sahat Yalkabov",
+  "author": "GigJam",
   "license": "MIT",
   "scripts": {
     "start": "node app.js",
