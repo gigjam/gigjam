@@ -7,8 +7,8 @@
         span.icon-bar
         span.icon-bar
       a.navbar-brand(href='/')
-        i.fa.fa-cube
-        | Project name
+        i.fa.fa-terminal
+        | GigJam
     .collapse.navbar-collapse
       ul.nav.navbar-nav
         li(class=(title == 'Home') ? 'active' : undefined)
@@ -38,5 +38,9 @@
               li
                 a(href='/account') My Account
               li.divider
+              if user.isAdmin
+                li
+                  a(href='/admin') Admin panel
+                li.divider
               li
                 a(href='/logout') Logout
