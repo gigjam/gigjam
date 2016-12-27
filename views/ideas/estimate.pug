@@ -5,42 +5,52 @@ block content
   hr
   .row
     .col-sm-6
-        label.radio-inline
-            input(type='radio', name='optradio')
-            | Developer
-        label.radio-inline
-            input(type='radio', name='optradio')
-            | Designer
-        label.radio-inline
-            input(type='radio', name='optradio')
-            | Both
 
-        .form-group
-            label(for='sel1') Select list:
-            select#sel1.form-control
-                option 1
-                option 2
-                option 3
-                option 4
+        form.form-horizontal(role='form', method='POST')
+            input(type='hidden', name='_csrf', value=_csrf)
 
-        .form-group
-            label(for='skills') What skill do they need?:
-            select#sel1.form-control.selectpicker(multiple='')
-                option NodeJS
-                option ASP.NET
-                option ASP.NET Core
-                option IOS Development (Swift)
-                option IOS Development (Objective C)
-                option Android Development
+            label(for='title') Title:
+            input#title.form-control(name='title', required)
 
-        .form-group
-            label(for='sel1') Select list:
-            select#sel1.form-control.selectpicker(multiple='')
-                option 1
-                option 2
-                option 3
-                option 4
-           
+            label(for='description') Description:
+            textarea#description.form-control(rows='5' name='description', required)
+
+            label(for='customer') Who are you?:
+            input#customer.form-control(name='customer' required)
+
+            label(for='contact') Phone or email:
+            input#contact.form-control(name='contact' required)
+
+            .form-group
+                label(for='looking_for') Looking for:
+                select#looking_for.form-control.selectpicker(name='type')
+                    option Developer
+                    option Designer
+                    option Both
+
+            .form-group
+                label(for='skills') What skill do they need?:
+                select#skills.form-control.selectpicker(name='skills' multiple='')
+                    option NodeJS
+                    option ASP.NET
+                    option ASP.NET Core
+                    option IOS Development (Swift)
+                    option IOS Development (Objective C)
+                    option Android Development
+
+            .form-group
+                label(for='budget') Budget:
+                select#budget.form-control.selectpicker(name='budget')
+                    option 500 - 650 Kr i timmen
+                    option 650 - 950 Kr i timmen
+                    option 950 - 1200 Kr i timmen
+                    option 1200+ Kr i timmen
+
+            .form-group
+                button.btn.btn-primary(type='submit')
+                    | Skapa
+
+          
 
     .col-sm-6
       h2 Heading

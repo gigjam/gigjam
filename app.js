@@ -138,6 +138,7 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 
 app.get('/invite/:token', userController.acceptInvite);
 app.get('/estimate', homeController.estimate);
+app.post('/estimate', homeController.createIdea);
 
 // TODO: Lock to developer
 app.get('/developer', developerController.index);
