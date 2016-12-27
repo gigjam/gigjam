@@ -3,14 +3,18 @@ extends ../layout
 block content
   .materialize-box
     .material-header
-      p Bjud in
+      h2 Bjud in
     .material-body
-        form.form-horizontal(role='form', method='POST')
+        form.form-horizontal(role='form', method='POST' style='display: inline-block; margin-left: 38px; margin-right: 38px;')
             input(type='hidden', name='_csrf', value=_csrf)
             .form-group
-                .col-sm-12
-                    button.btn.btn-primary(type='submit')
-                        | Skapa
+                button.btn.btn-primary(type='submit')
+                    | Skapa developer invite.
+        form.form-horizontal(role='form', method='POST' action='/admin/seller/invite' style='display: inline-block; margin-left: 38px; margin-right: 38px;')
+            input(type='hidden', name='_csrf', value=_csrf)
+            .form-group
+                button.btn.btn-primary(type='submit')
+                    | Skapa seller invite.
 
         .row
             .span5
@@ -18,12 +22,15 @@ block content
                     thead
                     tr
                         th Inbjudnings länk
+                        th Typ
                         th 
                     tbody
                         each invite in invitations || []
                             tr
                                 td
                                     .col-sm-6(style="word-break: break-all;") #{host}/signup/restaurant/#{invite.token}
+                                td
+                                    span #{invite.type}
                                 td
                                     form.form-horizontal(role='form', action='/admin/invite/delete/'+invite._id, method='POST')
                                         input(type='hidden', name='_csrf', value=_csrf)

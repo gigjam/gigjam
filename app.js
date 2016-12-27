@@ -136,12 +136,18 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 
+// TODO: Lock to developer
 app.get('/developer', developerController.index);
 
+// TODO: Lock to seller
 app.get('/seller', sellerController.index);
 
+// TODO: Lock this to admin
 app.get('/admin', adminController.index);
 app.get('/admin/invite', adminController.invite);
+app.post('/admin/invite', adminController.createInvite);
+app.post('/admin/seller/invite', adminController.createSellerInvite);
+app.post('/admin/invite/delete/:inviteId', adminController.deleteInvite);
 
 /**
  * API examples routes.
