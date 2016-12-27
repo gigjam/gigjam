@@ -23,7 +23,12 @@ const userSchema = new mongoose.Schema({
     location: String,
     website: String,
     picture: String
-  }
+  },
+
+  isAdmin: String, 
+  developerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Developer' },
+  sellerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller' },
+
 }, { timestamps: true });
 
 /**
