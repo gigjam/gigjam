@@ -1,7 +1,13 @@
 extends ../layout
 
 block content
-  .materialize-box
-    .material-header
-      p Seller
-    .material-body
+  h1 Ideas
+  p.lead All ideas created.
+  hr
+  .row
+    for idea in ideas || []
+      .col-sm-6
+        h2 #{idea.title}
+        p #{idea.description}
+        p
+          a.btn.btn-default(href='#', role='button') View details »

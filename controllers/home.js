@@ -26,6 +26,7 @@ exports.estimate = (req, res) => {
  * Create idea page.
  */
 exports.createIdea = (req, res) => {
+  // TODO: Limit chars on title..
   req.assert('title',       'Title cannot be blank').notEmpty();
   req.assert('description', 'Description cannot be blank').notEmpty();
   req.assert('customer',    'Customer cannot be blank').notEmpty();
