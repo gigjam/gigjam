@@ -35,6 +35,8 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const adminController = require('./controllers/admin');
+const developerController = require('./controllers/developer');
+const sellerController = require('./controllers/seller');
 
 /**
  * API keys and Passport configuration.
@@ -133,6 +135,10 @@ app.post('/account/profile', passportConfig.isAuthenticated, userController.post
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
+
+app.get('/developer', developerController.index);
+
+app.get('/seller', sellerController.index);
 
 app.get('/admin', adminController.index);
 app.get('/admin/invite', adminController.invite);
