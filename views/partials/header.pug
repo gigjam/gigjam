@@ -42,11 +42,11 @@
                 li
                   a(href='/admin') Admin panel
                 li.divider
-              if user.developerId
+              if user.isDeveloper
                 li
                   a(href='/developer') Developer
                 li.divider
-              if user.sellerId
+              if user.isSeller
                 li
                   a(href='/seller') Seller
                 li.divider

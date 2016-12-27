@@ -136,6 +136,8 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 
+app.get('/invite/:token', userController.acceptInvite);
+
 // TODO: Lock to developer
 app.get('/developer', developerController.index);
 

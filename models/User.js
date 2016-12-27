@@ -25,9 +25,9 @@ const userSchema = new mongoose.Schema({
     picture: String
   },
 
-  isAdmin: String, 
-  developerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Developer' },
-  sellerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Seller' },
+  isAdmin: { type: Boolean, default: false },
+  isSeller: { type: Boolean, default: false },
+  isDeveloper: { type: Boolean, default: false },
 
 }, { timestamps: true });
 

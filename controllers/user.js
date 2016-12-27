@@ -3,6 +3,44 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
+const Invite = require('../models/Invite');
+
+
+/**
+ * GET /invite
+ * Accept invite
+ */
+exports.acceptInvite = (req, res) => {
+  const user = req.user;
+  if (!user) return res.redirect('/login');
+  const token = req.params.token;
+  if (!token) {
+    req.flash('errors', { msg: 'Could not find invite!' });
+    return res.redirect('/');
+  }
+
+  Invite.findOne({token: token}, (err, invite) => {
+    if (err) {
+      req.flash('errors', { msg: 'Could not find invite!' });
+      return res.redirect('/');
+    }
+    if (invite.type === 'Developer') {
+        user.isDeveloper = true;
+    } else {
+        user.isSeller = true;
+    }
+    user.save((err) => {
+      if (err) {
+        req.flash('errors', { msg: 'Could not find invite!' });
+        return res.redirect('/');
+      } else {
+        req.flash('success', { msg: 'Success! Accepted invite!' });
+        return res.redirect('/');
+      }
+    });
+  });
+};
+
 
 /**
  * GET /login
