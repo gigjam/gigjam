@@ -7,3 +7,14 @@ exports.index = (req, res) => {
     title: 'Home'
   });
 };
+
+/**
+ * GET /
+ * Home page.
+ */
+exports.estimate = (req, res) => {
+  res.render('ideas/estimate', {
+    title: 'Estimate'
+  });
+};
+

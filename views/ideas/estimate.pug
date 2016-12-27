@@ -1,0 +1,49 @@
+extends ../layout
+
+block content
+  h1 Estimate
+  hr
+  .row
+    .col-sm-6
+        label.radio-inline
+            input(type='radio', name='optradio')
+            | Developer
+        label.radio-inline
+            input(type='radio', name='optradio')
+            | Designer
+        label.radio-inline
+            input(type='radio', name='optradio')
+            | Both
+
+        .form-group
+            label(for='sel1') Select list:
+            select#sel1.form-control
+                option 1
+                option 2
+                option 3
+                option 4
+
+        .form-group
+            label(for='skills') What skill do they need?:
+            select#sel1.form-control.selectpicker(multiple='')
+                option NodeJS
+                option ASP.NET
+                option ASP.NET Core
+                option IOS Development (Swift)
+                option IOS Development (Objective C)
+                option Android Development
+
+        .form-group
+            label(for='sel1') Select list:
+            select#sel1.form-control.selectpicker(multiple='')
+                option 1
+                option 2
+                option 3
+                option 4
+           
+
+    .col-sm-6
+      h2 Heading
+      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+      p
+        a.btn.btn-default(href='#', role='button') View details »
