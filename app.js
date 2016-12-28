@@ -142,6 +142,7 @@ app.post('/estimate', homeController.createIdea);
 
 // TODO: Lock to developer
 app.get('/developer', developerController.index);
+app.get('/developer/project/:projectId', developerController.getProject);
 
 // TODO: Lock to seller
 app.get('/seller', sellerController.index);

@@ -109,9 +109,4 @@ exports.postCreateProject = (req, res) => {
     }
     return res.redirect('/seller');
   });
-
-
-
-
-
 };

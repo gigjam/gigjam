@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  h1 Project
+  p.lead Single project.  
+    //a.btn.btn-default(href='/seller/idea/'+project._id+'/project/create', role='button') Create project
+  hr
+  .row
+    .col-sm-12
+        h2 #{project.title}
+        p #{project.description}
+        p #{project.customer}
+        p #{project.contact}
