@@ -145,6 +145,7 @@ app.get('/developer', developerController.index);
 
 // TODO: Lock to seller
 app.get('/seller', sellerController.index);
+app.get('/seller/idea/:ideaId', sellerController.getIdea);
 
 // TODO: Lock this to admin
 app.get('/admin', adminController.index);
