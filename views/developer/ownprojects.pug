@@ -1,9 +1,8 @@
 extends ../layout
 
 block content
-  h1 Project
-  p.lead All projects created.  
-    a.btn.btn-default(href='/developer/myprojects', role='button') View own projects
+  h1 Projects
+  p.lead My projects.
   hr
   .row
     for project in projects || []

@@ -3,7 +3,15 @@ extends ../layout
 block content
   h1 Project
   p.lead Single project.  
-    //a.btn.btn-default(href='/seller/idea/'+project._id+'/project/create', role='button') Create project
+    // Only take project if not taken by anyone else yet
+    if (!project.developerId)
+      form(method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group
+            button.btn.btn-primary(type='submit')
+                | Assign to me
+    else if (project.developerId.toString() === user._id.toString())
+      p You are assigned to this project!
   hr
   .row
     .col-sm-12
