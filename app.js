@@ -136,6 +136,11 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 
+app.get('/join/seller', passportConfig.isAuthenticated, homeController.joinSeller);
+app.post('/join/seller', passportConfig.isAuthenticated, homeController.postJoinSeller);
+app.get('/join/developer', passportConfig.isAuthenticated, homeController.joinDeveloper);
+app.post('/join/developer', passportConfig.isAuthenticated, homeController.postJoinDeveloper);
+
 app.get('/invite/:token', userController.acceptInvite);
 app.get('/estimate', homeController.estimate);
 app.post('/estimate', homeController.createIdea);

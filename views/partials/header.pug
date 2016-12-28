@@ -19,8 +19,15 @@
           a(href='/estimate') Estimate
         li(class=(title == 'Contact') ? 'active' : undefined)
           a(href='/contact') Contact
-        //li
-          a(href='/status') Status
+        li.dropdown(class=(title == 'Join') ? 'active' : undefined)
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            span Join
+            i.caret
+          ul.dropdown-menu
+            li
+              a(href='/join/seller') Become a seller
+            li
+              a(href='/join/developer') Become a developer
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=(title == 'Login') ? 'active' : undefined)

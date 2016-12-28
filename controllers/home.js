@@ -1,4 +1,5 @@
 const Idea = require('../models/Idea');
+const Application = require('../models/Application');
 
 /**
  * GET /
@@ -56,3 +57,76 @@ exports.createIdea = (req, res) => {
     return res.redirect('/estimate');
   })
 };
+
+/**
+ * GET /join/developer
+ * Join developer page.
+ */
+exports.joinDeveloper = (req, res) => {
+  res.render('application/developer', {
+    title: 'Join',  // Required for heighliht
+  });
+};
+
+/**
+ * POST /join/developer
+ * Join developer page.
+ */
+exports.postJoinDeveloper = (req, res) => {
+  if (req.user.isDeveloper) {
+    req.flash('errors', {msg: 'You are aleady a developer!'});
+    return res.redirect('/');
+  }
+  const application = Application({
+    creator: req.user,
+    type: 'Developer',
+    message: req.body.message || ''
+  });
+
+  application.save((err) => {
+    if (err) {
+      req.flash('errors', err);
+      res.redirect('/join/developer');
+    } else {
+      req.flash('success', {msg: 'Your application has been recived!'})
+      res.redirect('/');
+    }
+  });
+};
+
+/**
+ * GET /join/seller
+ * Join seller page.
+ */
+exports.joinSeller = (req, res) => {
+  res.render('application/seller', {
+    title: 'Join', // Required for heighliht
+  });
+};
+
+/**
+ * POST /join/seller
+ * Join seller page.
+ */
+exports.postJoinSeller = (req, res) => {
+  if (req.user.isSeller) {
+    req.flash('errors', {msg: 'You are aleady a seller!'});
+    return res.redirect('/');
+  }
+  const application = Application({
+    creator: req.user,
+    type: 'Seller',
+    message: req.body.message || ''
+  });
+
+  application.save((err) => {
+    if (err) {
+      req.flash('errors', err);
+      res.redirect('/join/seller');
+    } else {
+      req.flash('success', {msg: 'Your application has been recived!'})
+      res.redirect('/');
+    }
+  });
+};
+
