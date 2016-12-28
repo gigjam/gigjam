@@ -163,6 +163,9 @@ app.get('/admin/invite', adminController.invite);
 app.post('/admin/invite', adminController.createInvite);
 app.post('/admin/seller/invite', adminController.createSellerInvite);
 app.post('/admin/invite/delete/:inviteId', adminController.deleteInvite);
+app.get('/admin/applications', adminController.applications);
+app.post('/admin/application/accept/:applicationId', adminController.acceptApplication);
+app.post('/admin/application/delete/:applicationId', adminController.deleteApplication);
 
 /**
  * API examples routes.
