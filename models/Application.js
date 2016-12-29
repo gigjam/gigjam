@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const applicationSchema = new mongoose.Schema({
 
-    creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    _creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     type: String, // Seller or Developer
     messgae: String
 

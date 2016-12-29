@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+  .materialize-box
+    .material-header
+      h2 Applications
+    .material-body
+        .row
+            .span5
+                table.table.table-striped.table-condensed
+                    thead
+                    tr
+                        th Email
+                        th Typ
+                        th 
+                        th 
+                    tbody
+                        each application in applications || []
+                            tr
+                                td
+                                    span #{application._creator.email}
+                                td
+                                    span #{application.type}
+                                td
+                                    form.form-horizontal(role='form', action='/admin/application/accept/'+application._id, method='POST')
+                                        input(type='hidden', name='_csrf', value=_csrf)
+                                        .form-group
+                                            .col-sm-6
+                                                button.btn.btn-default(type='submit')
+                                                    | Acceptera
+                                td
+                                    form.form-horizontal(role='form', action='/admin/application/delete/'+application._id, method='POST')
+                                        input(type='hidden', name='_csrf', value=_csrf)
+                                        .form-group
+                                            .col-sm-6
+                                                button.btn.btn-danger(type='submit')
+                                                    | Ta bort

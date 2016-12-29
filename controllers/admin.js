@@ -1,3 +1,4 @@
+const async = require('async');
 const Invite = require('../models/Invite');
 const Application = require('../models/Application');
 
@@ -85,7 +86,7 @@ exports.deleteInvite = (req, res) => {
  * Applications page.
  */
 exports.applications = (req, res) => {
-  Application.find({}, (err, applications) => {
+  Application.find({}).populate('_creator').exec((err, applications) => {
     if (err) {
         req.flash('errors', err);
     }
@@ -101,15 +102,45 @@ exports.applications = (req, res) => {
  * Application accept.
  */
 exports.acceptApplication = (req, res) => {
-  // TODO: Update creator of application to what they applied for.
     const applicationId = req.params.applicationId;
 
-    Application.findById(applicationId).remove((err) => {
+    async.waterfall([
+        (callback) => {
+            Application.findById(applicationId).populate('_creator').exec((err, application) => {
+                callback(err, application);
+            });
+        },
+        (application, callback) => {
+            const user = application._creator;
+            if (application.type === 'Developer') {
+                user.isDeveloper = true;
+            } else if (application.type === 'Seller') {
+                user.isSeller = true;
+            } else {
+               return callback({msg: 'Application is broken!'});
+            }
+            user.save((err) => {
+                callback(err, application);
+            });
+        }, 
+        (application, callback) => {
+            const email = application._creator.email;
+            const applicationType = application.type;
+            application.remove((err) => {
+                callback(err, email, applicationType);
+            });
+        }, 
+        (email, applicationType, callback) => {
+            // TODO: Notify creator of application that their application has been accepted! (Email)
+            callback(null);
+        }
+    ], 
+    (err) => {
         if (err) {
             req.flash('errors', err);
             return res.redirect('/admin/applications');
         } else {
-            req.flash('success', { msg: 'Successfully deleted application' });
+            req.flash('success', { msg: 'Successfully accepted application' });
             return res.redirect('/admin/applications');
         }
     });

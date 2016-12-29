@@ -78,7 +78,7 @@ exports.postJoinDeveloper = (req, res) => {
     return res.redirect('/');
   }
   const application = Application({
-    creator: req.user,
+    _creator: req.user,
     type: 'Developer',
     message: req.body.message || ''
   });
@@ -114,7 +114,7 @@ exports.postJoinSeller = (req, res) => {
     return res.redirect('/');
   }
   const application = Application({
-    creator: req.user,
+    _creator: req.user,
     type: 'Seller',
     message: req.body.message || ''
   });
