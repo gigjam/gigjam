@@ -312,11 +312,10 @@ exports.postReset = (req, res, next) => {
     },
     function sendResetPasswordEmail(user, done) {
       const transporter = nodemailer.createTransport({
-        // TODO: Change to mailgun 
-        service: 'SendGrid',
+        service: 'Mailgun',
         auth: {
-          user: process.env.SENDGRID_USER,
-          pass: process.env.SENDGRID_PASSWORD
+            user: process.env.MAILGUN_USER,
+            pass: process.env.MAILGUN_PASSWORD
         }
       });
       const mailOptions = {
@@ -387,11 +386,10 @@ exports.postForgot = (req, res, next) => {
     },
     function sendForgotPasswordEmail(token, user, done) {
       const transporter = nodemailer.createTransport({
-        // TODO: Change to mailgun 
-        service: 'SendGrid',
+        service: 'Mailgun',
         auth: {
-          user: process.env.SENDGRID_USER,
-          pass: process.env.SENDGRID_PASSWORD
+            user: process.env.MAILGUN_USER,
+            pass: process.env.MAILGUN_PASSWORD
         }
       });
       const mailOptions = {
