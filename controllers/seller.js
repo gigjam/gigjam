@@ -8,8 +8,7 @@ const Project = require('../models/Project');
  */
 exports.index = (req, res) => {
   // TODO: Limit this, and make a load more func
-  // TODO: Sort this.
-  Idea.find({}, (err, ideas) => {
+  Idea.find({}, null, {sort: { createdAt: 1 }}, (err, ideas) => {
     if (err) {
       req.flash('errors', err);
       res.redirect('/');

@@ -7,8 +7,7 @@ const Project = require('../models/Project');
  */
 exports.index = (req, res) => {
   // TODO: Limit this, and make a load more func
-  // TODO: Sort this.
-  Project.find({}, (err, projects) => { // TOOD: Where not already assigned to a developer
+  Project.find({}, null, {sort: { createdAt: 1 }}, (err, projects) => { // TOOD: Where not already assigned to a developer?
     if (err) {
       req.flash('errors', err);
       res.redirect('/');
@@ -26,7 +25,8 @@ exports.index = (req, res) => {
  * Developers project page
  */
 exports.getOwnProjects = (req, res) => {
-  Project.find({ developerId: req.user._id }, (err, projects) => {
+  Project.find({ developerId: req.user._id }, null, 
+    {sort: { createdAt: 1 }}, (err, projects) => {
     if (err) {
       req.flash('errors', err);
       res.redirect('/');
@@ -66,14 +66,14 @@ exports.assignProject = (req, res) => {
   const projectId = req.params.projectId;
   async.waterfall([
     (callback) => {
-    // Get project with id projectId
+      // Get project with id projectId
       Project.findById(projectId, (err, project) => {
         if (project.developerId) err = {msg: 'This projet is taken!'};
         callback(err, project);
       });
     }, 
     (project, callback) => {
-    // Add currentUser to the project (Developer)
+      // Add currentUser to the project (Developer)
       project.developerId = req.user;
       project.save((err) => {
         callback(err, project);
