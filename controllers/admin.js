@@ -1,4 +1,5 @@
 const async = require('async');
+const nodemailer = require('nodemailer');
 const Invite = require('../models/Invite');
 const Application = require('../models/Application');
 
@@ -131,8 +132,9 @@ exports.acceptApplication = (req, res) => {
             });
         }, 
         (email, applicationType, callback) => {
-            // TODO: Notify creator of application that their application has been accepted! (Email)
-            callback(null);
+            sendAcceptNotification(email, applicationType, (err) => {
+                callback(err);
+            });
         }
     ], 
     (err) => {
@@ -145,6 +147,28 @@ exports.acceptApplication = (req, res) => {
         }
     });
 };
+
+/**
+ * Send email with application accepted
+ */
+function sendAcceptNotification(email, type, callback) {
+    const transporter = nodemailer.createTransport({
+        service: 'Mailgun',
+        auth: {
+            user: process.env.MAILGUN_USER,
+            pass: process.env.MAILGUN_PASSWORD
+        }
+    });
+    const mailOptions = {
+        to: email,
+        from: 'notify@gigjam.com',
+        subject: 'Your GigJam user has been upgraded to ' + type,
+        text: `Hello,\n\nThis is a notification that your account ${email} has just been upgraded to ${type}`
+    };
+    transporter.sendMail(mailOptions, (err) => {
+        callback(err);
+    });
+}
 
 
 
