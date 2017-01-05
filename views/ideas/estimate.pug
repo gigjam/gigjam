@@ -1,32 +1,22 @@
 extends ../layout
 
 block content
-  h1 Estimate
+  h1 Estimera
   hr
   .row
     .col-sm-6
 
-        form.form-horizontal(role='form', method='POST')
+        form#estimate_form.form-horizontal(role='form', method='POST')
             input(type='hidden', name='_csrf', value=_csrf)
 
-            label(for='title') Title:
-            input#title.form-control(name='title', required)
-
-            label(for='description') Description:
-            textarea#description.form-control(rows='5' name='description', required)
-
-            label(for='customer') Who are you?:
-            input#customer.form-control(name='customer' required)
-
-            label(for='contact') Phone or email:
-            input#contact.form-control(name='contact' required)
-
             .form-group
-                label(for='looking_for') Looking for:
-                select#looking_for.form-control.selectpicker(name='type')
-                    option Developer
-                    option Designer
-                    option Both
+                div#project_type
+                    label(for='project_type') Typ av project:
+                    select.form-control.selectpicker(name='type', multiple='')
+                        option Statisk webbsida
+                        option Web app
+                        option iOS
+                        option Android
 
             .form-group
                 label(for='skills') What skill do they need?:
@@ -39,6 +29,39 @@ block content
                     option Android Development
 
             .form-group
+                label(for='byhour_or_new') Nytt eller existerande project:
+                select#byhour_or_new.form-control.selectpicker(name='type')
+                    option Nytt
+                    option Existerande
+                    
+            .form-group#looking_for_form_group.hide
+                label(for='looking_for') Letar efter:
+                select#looking_for.form-control.selectpicker(name='type')
+                    option Utvecklare
+                    option Designer
+                    option Båda
+
+            .form-group#hours_form_group.hide
+                label(for='hours') Timmar:
+                input#hours.form-control(name='hours', type='number', required)
+
+            .form-group
+                label(for='title') Titel:
+                input#title.form-control(name='title', required)
+
+            .form-group
+                label(for='description') Beskrivning:
+                textarea#description.form-control(rows='5' name='description', required)
+
+            .form-group
+                label(for='customer') Vem är du?:
+                input#customer.form-control(name='customer' required)
+
+            .form-group
+                label(for='contact') Telefon or email:
+                input#contact.form-control(name='contact' required)
+
+            //.form-group
                 label(for='budget') Budget:
                 select#budget.form-control.selectpicker(name='budget')
                     option 500 - 650 Kr i timmen
@@ -46,6 +69,7 @@ block content
                     option 950 - 1200 Kr i timmen
                     option 1200+ Kr i timmen
 
+            br
             .form-group
                 button.btn.btn-primary(type='submit')
                     | Skapa
@@ -55,5 +79,7 @@ block content
     .col-sm-6
       h2 Heading
       p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
+      hr
+      div Summa: 
+        span#sum_estimate 0
+        span  kr
