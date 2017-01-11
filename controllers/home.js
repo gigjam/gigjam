@@ -45,7 +45,10 @@ exports.createIdea = (req, res) => {
     title: req.body.title,
     description: req.body.description,
     customer: req.body.customer,
-    contact: req.body.contact
+    contact: req.body.contact,
+    // hours: req.body.hours,
+    // type: req.body.type, // array with strings
+    // estimate: req.body.estimate
   }); // TODO: Add more here, we got more fields in the form right now...
 
   idea.save((err) => {
