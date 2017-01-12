@@ -518,6 +518,36 @@ exports.isAuthenticated = (req, res, next) => {
 };
 
 /**
+ * Login Required Developer middleware.
+ */
+exports.isAuthenticatedDeveloper = (req, res, next) => {
+    if (req.isAuthenticated() && req.user.isDeveloper) {
+        return next();
+    }
+    res.redirect('/');
+};
+
+/**
+ * Login Required Seller middleware.
+ */
+exports.isAuthenticatedDeveloper = (req, res, next) => {
+    if (req.isAuthenticated() && req.user.isSeller) {
+        return next();
+    }
+    res.redirect('/');
+};
+
+/**
+ * Login Required admin middleware.
+ */
+exports.isAuthenticatedAdmin = (req, res, next) => {
+    if (req.isAuthenticated() && req.user.isAdmin) {
+        return next();
+    }
+    res.redirect('/');
+};
+
+/**
  * Authorization Required middleware.
  */
 exports.isAuthorized = (req, res, next) => {
