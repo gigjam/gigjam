@@ -1,11 +1,15 @@
 $(document).ready(function() {
 
   $('#project_type').on('change', function() {
-    $('#sum_estimate').text(calculateEstimate());
+    var calculatedEstimate = calculateEstimate();
+    $('#sum_estimate').text(calculateEstimate);
+    $('#estimate_price #estimate').val(parseInt(calculatedEstimate));
   });
 
   $('#hours').change(function() {
-    $('#sum_estimate').text(calculateEstimate());
+    var calculatedEstimate = calculateEstimate();
+    $('#sum_estimate').text(calculateEstimate);
+    $('#estimate_price #estimate').val(parseInt(calculatedEstimate));
   }).keyup(function(){
         $(this).blur();
         $(this).focus();

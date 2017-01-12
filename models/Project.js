@@ -8,6 +8,12 @@ const projectSchema = new mongoose.Schema({
     description: String,
     customer: String, 
     contact: String,
+    projectType: [String],
+    skills: [String],
+    type: [String],
+    lookingFor: String,
+    hours: String,
+    estimate: Number,
     developerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Developer' },
 
 }, { timestamps: true });

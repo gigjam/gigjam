@@ -46,10 +46,13 @@ exports.createIdea = (req, res) => {
     description: req.body.description,
     customer: req.body.customer,
     contact: req.body.contact,
-    // hours: req.body.hours,
-    // type: req.body.type, // array with strings
-    // estimate: req.body.estimate
-  }); // TODO: Add more here, we got more fields in the form right now...
+    projectType: req.body.project_type,
+    skills: req.body.skills,
+    type: req.body.type,
+    lookingFor: req.body.looking_for,
+    hours: req.body.hours,
+    estimate: req.body.estimate
+  });
 
   idea.save((err) => {
     if (err) {

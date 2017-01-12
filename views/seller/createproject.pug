@@ -6,46 +6,8 @@ block content
   .row
     .col-sm-6
 
-        form.form-horizontal(role='form', method='POST')
+        form#estimate_form.form-horizontal(role='form', method='POST')
             input(type='hidden', name='_csrf', value=_csrf)
-
-            label(for='title') Title:
-            input#title.form-control(name='title', value=idea.title required)
-
-            label(for='description') Description:
-            textarea#description.form-control(rows='5' name='description', required) #{idea.description}
-
-            label(for='customer') Who are you?:
-            input#customer.form-control(name='customer' value=idea.customer required)
-
-            label(for='contact') Phone or email:
-            input#contact.form-control(name='contact' value=idea.contact required)
-
-            .form-group
-                label(for='looking_for') Looking for:
-                select#looking_for.form-control.selectpicker(name='type')
-                    option Developer
-                    option Designer
-                    option Both
-
-            .form-group
-                label(for='skills') What skill do they need?:
-                select#skills.form-control.selectpicker(name='skills' multiple='')
-                    option NodeJS
-                    option ASP.NET
-                    option ASP.NET Core
-                    option IOS Development (Swift)
-                    option IOS Development (Objective C)
-                    option Android Development
-
-            .form-group
-                label(for='budget') Budget:
-                select#budget.form-control.selectpicker(name='budget')
-                    option 500 - 650 Kr i timmen
-                    option 650 - 950 Kr i timmen
-                    option 950 - 1200 Kr i timmen
-                    option 1200+ Kr i timmen
-
             .form-group
                 button.btn.btn-primary(type='submit')
                     | Skapa
@@ -55,5 +17,4 @@ block content
     .col-sm-6
       h2 Heading
       p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
+      hr

@@ -12,7 +12,7 @@ block content
             .form-group
                 div#project_type
                     label(for='project_type') Typ av project:
-                    select.form-control.selectpicker(name='type', multiple='')
+                    select.form-control.selectpicker(name='project_type', multiple='')
                         option Statisk webbsida
                         option Web app
                         option iOS
@@ -36,14 +36,18 @@ block content
                     
             .form-group#looking_for_form_group.hide
                 label(for='looking_for') Letar efter:
-                select#looking_for.form-control.selectpicker(name='type')
+                select#looking_for.form-control.selectpicker(name='looking_for')
                     option Utvecklare
                     option Designer
                     option Båda
 
             .form-group#hours_form_group.hide
                 label(for='hours') Timmar:
-                input#hours.form-control(name='hours', type='number', required)
+                input#hours.form-control(name='hours', type='number')
+
+            .form-group#estimate_price.hide
+                label(for='hours') Estimate:
+                input#estimate.form-control(name='estimate', type='number')
 
             .form-group
                 label(for='title') Titel:

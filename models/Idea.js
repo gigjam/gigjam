@@ -7,7 +7,13 @@ const ideaSchema = new mongoose.Schema({
     title: String,
     description: String,
     customer: String, 
-    contact: String
+    contact: String,
+    projectType: [String],
+    skills: [String],
+    type: [String],
+    lookingFor: String,
+    hours: String,
+    estimate: Number
 
 }, { timestamps: true });
 

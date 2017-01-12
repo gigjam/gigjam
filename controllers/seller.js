@@ -65,30 +65,28 @@ exports.getCreateProject = (req, res) => {
  * Idea create project page.
  */
 exports.postCreateProject = (req, res) => {
- // TODO: Limit chars on title..
-  req.assert('title',       'Title cannot be blank').notEmpty();
-  req.assert('description', 'Description cannot be blank').notEmpty();
-  req.assert('customer',    'Customer cannot be blank').notEmpty();
-  req.assert('contact',     'Contact cannot be blank').notEmpty();
-
-  const errors = req.validationErrors();
-
-  if (errors) {
-    req.flash('errors', errors);
-    return res.redirect('/seller');
-  }
-
   const ideaId = req.params.ideaId;
 
   async.waterfall([
-    (callback) => {
+    (callback) => { 
+      Idea.findById(ideaId, (err, idea) => {
+        callback(err, idea);
+      });
+    },
+    (idea, callback) => {
       const project = Project({
-        creator: req.user || null,
-        title: req.body.title,
-        description: req.body.description,
-        customer: req.body.customer,
-        contact: req.body.contact
-      }); // TODO: Add more here, we got more fields in the form right now...
+        creator: idea.user || null,
+        title: idea.title,
+        description: idea.description,
+        customer: idea.customer,
+        contact: idea.contact,
+        projectType: idea.project_type,
+        skills: idea.skills,
+        type: idea.type,
+        lookingFor: idea.looking_for,
+        hours: idea.hours,
+        estimate: idea.estimate
+      });
 
       project.save((err) => {
         callback(err);
