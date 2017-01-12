@@ -21,3 +21,7 @@ exports.start = (callback) => {
 exports.notifyEstimate = (message) => {
     bot.postMessageToChannel('estimate', message, params);
 }
+
+exports.contactSend = (message) => {
+    bot.postMessageToChannel('kontakt', message, params);
+}
