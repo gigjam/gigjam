@@ -20,6 +20,7 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
+
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 /**
@@ -115,6 +116,10 @@ app.use((req, res, next) => {
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
+
+const slack = require('./tools/slack');
+slack.start();
+
 /**
  * Primary app routes.
  */
@@ -145,27 +150,24 @@ app.get('/invite/:token', userController.acceptInvite);
 app.get('/estimate', homeController.estimate);
 app.post('/estimate', homeController.createIdea);
 
-// TODO: Lock to developer
-app.get('/developer', developerController.index);
-app.get('/developer/myprojects', developerController.getOwnProjects);
-app.get('/developer/project/:projectId', developerController.getProject);
-app.post('/developer/project/:projectId', developerController.assignProject);
+app.get('/developer', passportConfig.isAuthenticatedDeveloper, developerController.index);
+app.get('/developer/myprojects', passportConfig.isAuthenticatedDeveloper, developerController.getOwnProjects);
+app.get('/developer/project/:projectId', passportConfig.isAuthenticatedDeveloper, developerController.getProject);
+app.post('/developer/project/:projectId', passportConfig.isAuthenticatedDeveloper, developerController.assignProject);
 
-// TODO: Lock to seller
-app.get('/seller', sellerController.index);
-app.get('/seller/idea/:ideaId', sellerController.getIdea);
-app.get('/seller/idea/:ideaId/project/create', sellerController.getCreateProject);
-app.post('/seller/idea/:ideaId/project/create', sellerController.postCreateProject);
+app.get('/seller', passportConfig.isAuthenticatedSeller, sellerController.index);
+app.get('/seller/idea/:ideaId', passportConfig.isAuthenticatedSeller, sellerController.getIdea);
+app.get('/seller/idea/:ideaId/project/create', passportConfig.isAuthenticatedSeller, sellerController.getCreateProject);
+app.post('/seller/idea/:ideaId/project/create', passportConfig.isAuthenticatedSeller, sellerController.postCreateProject);
 
-// TODO: Lock this to admin
-app.get('/admin', adminController.index);
-app.get('/admin/invite', adminController.invite);
-app.post('/admin/invite', adminController.createInvite);
-app.post('/admin/seller/invite', adminController.createSellerInvite);
-app.post('/admin/invite/delete/:inviteId', adminController.deleteInvite);
-app.get('/admin/applications', adminController.applications);
-app.post('/admin/application/accept/:applicationId', adminController.acceptApplication);
-app.post('/admin/application/delete/:applicationId', adminController.deleteApplication);
+app.get('/admin', passportConfig.isAuthenticatedAdmin, adminController.index);
+app.get('/admin/invite', passportConfig.isAuthenticatedAdmin, adminController.invite);
+app.post('/admin/invite', passportConfig.isAuthenticatedAdmin, adminController.createInvite);
+app.post('/admin/seller/invite', passportConfig.isAuthenticatedAdmin, adminController.createSellerInvite);
+app.post('/admin/invite/delete/:inviteId', passportConfig.isAuthenticatedAdmin, adminController.deleteInvite);
+app.get('/admin/applications', passportConfig.isAuthenticatedAdmin, adminController.applications);
+app.post('/admin/application/accept/:applicationId', passportConfig.isAuthenticatedAdmin, adminController.acceptApplication);
+app.post('/admin/application/delete/:applicationId', passportConfig.isAuthenticatedAdmin, adminController.deleteApplication);
 
 /**
  * API examples routes.

@@ -55,6 +55,7 @@ function calculateEstimate() {
       hours = parseInt(hoursInput.val()) || 0;
     } else {
       hours = getTypeHours($(selected_project_type.get(i)));
+      hoursInput.val(hours);
     }
 
     sum += (hourCost*hours);
