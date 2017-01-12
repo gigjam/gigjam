@@ -530,7 +530,7 @@ exports.isAuthenticatedDeveloper = (req, res, next) => {
 /**
  * Login Required Seller middleware.
  */
-exports.isAuthenticatedDeveloper = (req, res, next) => {
+exports.isAuthenticatedSeller = (req, res, next) => {
     if (req.isAuthenticated() && req.user.isSeller) {
         return next();
     }

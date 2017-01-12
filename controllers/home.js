@@ -1,5 +1,9 @@
 const Idea = require('../models/Idea');
 const Application = require('../models/Application');
+const async = require('async');
+const slack = require('../tools/slack');
+
+var SlackBot = require('slackbots');
 
 /**
  * GET /
@@ -40,28 +44,41 @@ exports.createIdea = (req, res) => {
     return res.redirect('/estimate');
   }
 
-  const idea = Idea({
-    creator: req.user || null,
-    title: req.body.title,
-    description: req.body.description,
-    customer: req.body.customer,
-    contact: req.body.contact,
-    projectType: req.body.project_type,
-    skills: req.body.skills,
-    type: req.body.type,
-    lookingFor: req.body.looking_for,
-    hours: req.body.hours,
-    estimate: req.body.estimate
+  async.waterfall([
+    (callback) => {
+
+      const idea = Idea({
+        creator: req.user || null,
+        title: req.body.title,
+        description: req.body.description,
+        customer: req.body.customer,
+        contact: req.body.contact,
+        projectType: req.body.project_type,
+        skills: req.body.skills,
+        type: req.body.type,
+        lookingFor: req.body.looking_for,
+        hours: req.body.hours,
+        estimate: req.body.estimate
+      });
+
+      idea.save((err) => {
+        callback(err, idea);
+      })
+    }, 
+    (idea, callback) => {
+      var message = 'En ny estimering har skapats! ' + req.protocol + '://' + req.headers.host + '/seller/idea/' + idea._id;
+      slack.notifyEstimate(message);
+      callback(null);
+    }
+  ], (err, result) => {
+      if (err) {
+        req.flash('errors', err);
+      } else {
+        req.flash('success', {msg: "Successfully submitted the idea"});
+      }
+      return res.redirect('/estimate');
   });
 
-  idea.save((err) => {
-    if (err) {
-      req.flash('errors', err);
-    } else {
-      req.flash('success', {msg: "Successfully submitted the idea"});
-    }
-    return res.redirect('/estimate');
-  })
 };
 
 /**
